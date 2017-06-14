@@ -13,7 +13,7 @@ import (
 const (
 	API_VERSION   = "2.9"
 	API_TOKEN_URL = "https://graph.facebook.com/v2.9/oauth/access_token"
-	API_ENDPOINT  = "https://graph.facebook.com/"
+	API_ENDPOINT  = "https://graph.facebook.com/v2.9/"
 )
 
 var (
