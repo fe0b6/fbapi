@@ -13,7 +13,7 @@ import (
 const (
 	API_VERSION   = "2.9"
 	API_TOKEN_URL = "https://graph.facebook.com/v2.9/oauth/access_token"
-	API_ENDPOINT  = "https://graph.facebook.com/v2.9/"
+	API_ENDPOINT  = "https://graph.facebook.com/"
 )
 
 var (
@@ -107,7 +107,7 @@ func (fb *Api) GetAccount(id string, fields string) (ans GetAccountAns, err erro
 // Получаем инфу о рекламах
 func (fb *Api) Ads(id string, params map[string]string) (ans AdsAns, err error) {
 
-	url := fmt.Sprintf("%s%s/ads?access_token=%s&fields=%s&limit=%s", API_ENDPOINT, id,
+	url := fmt.Sprintf("%s/v%s/%s/ads?access_token=%s&fields=%s&limit=%s", API_ENDPOINT, API_VERSION, id,
 		fb.AccessToken, params["fields"], params["limit"])
 
 	client := &http.Client{Transport: httpTr}
