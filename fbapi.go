@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
 	"time"
 )
 
@@ -102,4 +103,49 @@ func (fb *Api) GetAccount(id string, fields string) (ans GetAccountAns, err erro
 	}
 
 	return
+}
+
+// Получаем инфу о рекламах
+func (fb *Api) Ads(id string, params map[string]string) (ans AdsAns, err error) {
+	q := url.Values{}
+	q.Add("access_token", fb.AccessToken)
+	if params["fields"] != "" {
+		q.Add("fields", params["fields"])
+	}
+	if params["limit"] != "" {
+		q.Add("limit", params["limit"])
+	}
+
+	url := fmt.Sprintf("%s%s/ads?"+q.Encode(), API_ENDPOINT, id)
+
+	client := &http.Client{Transport: httpTr}
+	resp, err := client.Get(url)
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	if err != nil {
+		log.Println("[error]", err)
+		return
+	}
+
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Println("[error]", err)
+		return
+	}
+
+	if resp.StatusCode != 200 {
+		err = errors.New(resp.Status)
+		log.Println("[error]", err, string(content))
+		return
+	}
+
+	err = json.Unmarshal(content, &ans)
+	if err != nil {
+		log.Println("[error]", err, string(content))
+		return
+	}
+
+	return
+
 }
