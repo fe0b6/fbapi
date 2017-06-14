@@ -11,8 +11,8 @@ import (
 )
 
 const (
-	API_VERSION   = "2.8"
-	API_TOKEN_URL = "https://graph.facebook.com/v2.8/oauth/access_token"
+	API_VERSION   = "2.9"
+	API_TOKEN_URL = "https://graph.facebook.com/v2.9/oauth/access_token"
 	API_ENDPOINT  = "https://graph.facebook.com/"
 )
 
@@ -70,7 +70,7 @@ func (fb *Api) GetAccount(id string, fields string) (ans GetAccountAns, err erro
 		fields = "&fields=" + fields
 	}
 
-	url := fmt.Sprintf("%s/%s/?access_token=%s%s",
+	url := fmt.Sprintf("%s%s/?access_token=%s%s",
 		API_ENDPOINT, id, fb.AccessToken, fields)
 
 	client := &http.Client{Transport: httpTr}
