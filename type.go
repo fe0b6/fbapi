@@ -28,6 +28,7 @@ type AdsAns struct {
 }
 
 type AdsAnsData struct {
+	ID          string                `json:"id"`
 	Insights    AdsAnsDataInsights    `json:"insights"`
 	Adcreatives AdsAnsDataAdcreatives `json:"adcreatives"`
 }
@@ -45,6 +46,19 @@ type AdsAnsDataInsightsData struct {
 	CampaignId  string `json:"campaign_id"`
 	AdsetId     string `json:"adset_id"`
 	AdId        string `json:"ad_id"`
+}
+
+type InsightsAns struct {
+	Data []InsightsAnsData `json:"data"`
+}
+
+type InsightsAnsData struct {
+	AdID        string `json:"ad_id"`
+	Impressions string `json:"impressions"`
+	Clicks      string `json:"clicks"`
+	Spend       string `json:"spend"`
+	DateStart   string `json:"date_start"`
+	DateStop    string `json:"date_stop"`
 }
 
 type AdsAnsDataAdcreatives struct {

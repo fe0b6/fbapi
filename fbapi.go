@@ -116,8 +116,6 @@ func (fb *Api) Ads(id string, params map[string]string) (ans AdsAns, err error) 
 	url := fmt.Sprintf("%sv%s/%s/ads?access_token=%s&%s", API_ENDPOINT, API_VERSION, id,
 		fb.AccessToken, strings.Join(urlParams, "&"))
 
-	log.Println(url)
-
 	client := &http.Client{Transport: httpTr}
 	resp, err := client.Get(url)
 	if resp != nil {
@@ -133,8 +131,6 @@ func (fb *Api) Ads(id string, params map[string]string) (ans AdsAns, err error) 
 		log.Println("[error]", err)
 		return
 	}
-
-	log.Println(string(content))
 
 	if resp.StatusCode != 200 {
 		err = errors.New(resp.Status)
@@ -153,7 +149,7 @@ func (fb *Api) Ads(id string, params map[string]string) (ans AdsAns, err error) 
 }
 
 // Получаем инфу о рекламах
-func (fb *Api) Insights(id string, params map[string]string) (ans AdsAns, err error) {
+func (fb *Api) Insights(id string, params map[string]string) (ans InsightsAns, err error) {
 
 	urlParams := []string{}
 	for k, v := range params {
