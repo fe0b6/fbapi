@@ -116,6 +116,8 @@ func (fb *Api) Ads(id string, params map[string]string) (ans AdsAns, err error) 
 	url := fmt.Sprintf("%sv%s/%s/ads?access_token=%s&%s", API_ENDPOINT, API_VERSION, id,
 		fb.AccessToken, strings.Join(urlParams, "&"))
 
+	log.Println(url)
+
 	client := &http.Client{Transport: httpTr}
 	resp, err := client.Get(url)
 	if resp != nil {
