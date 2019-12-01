@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -107,8 +108,13 @@ func (fb *Api) GetAccount(id string, fields string) (ans GetAccountAns, err erro
 // Получаем инфу о рекламах
 func (fb *Api) Ads(id string, params map[string]string) (ans AdsAns, err error) {
 
-	url := fmt.Sprintf("%sv%s/%s/ads?access_token=%s&fields=%s&limit=%s", API_ENDPOINT, API_VERSION, id,
-		fb.AccessToken, params["fields"], params["limit"])
+	urlParams := []string{}
+	for k, v := range params {
+		urlParams = append(urlParams, fmt.Sprintf("%s=%s", k, v))
+	}
+
+	url := fmt.Sprintf("%sv%s/%s/ads?access_token=%s&%s", API_ENDPOINT, API_VERSION, id,
+		fb.AccessToken, strings.Join(urlParams, "&"))
 
 	client := &http.Client{Transport: httpTr}
 	resp, err := client.Get(url)
