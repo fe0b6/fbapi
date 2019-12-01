@@ -126,6 +126,8 @@ func (fb *Api) Ads(id string, params map[string]string) (ans AdsAns, err error) 
 		return
 	}
 
+	log.Println(string(content))
+
 	if resp.StatusCode != 200 {
 		err = errors.New(resp.Status)
 		log.Println("[error]", err, string(content))
