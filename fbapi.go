@@ -159,8 +159,6 @@ func (fb *Api) Insights(id string, params map[string]string) (ans InsightsAns, e
 	url := fmt.Sprintf("%sv%s/%s/insights?access_token=%s&%s", API_ENDPOINT, API_VERSION, id,
 		fb.AccessToken, strings.Join(urlParams, "&"))
 
-	log.Println(url)
-
 	client := &http.Client{Transport: httpTr}
 	resp, err := client.Get(url)
 	if resp != nil {
@@ -176,8 +174,6 @@ func (fb *Api) Insights(id string, params map[string]string) (ans InsightsAns, e
 		log.Println("[error]", err)
 		return
 	}
-
-	log.Println(string(content))
 
 	if resp.StatusCode != 200 {
 		err = errors.New(resp.Status)
