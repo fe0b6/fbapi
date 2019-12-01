@@ -113,7 +113,7 @@ func (fb *Api) Ads(id string, params map[string]string) (ans AdsAns, err error) 
 		urlParams = append(urlParams, fmt.Sprintf("%s=%s", k, v))
 	}
 
-	url := fmt.Sprintf("%sv%s/%s/ads?access_token=%s&%s", API_ENDPOINT, API_VERSION, id,
+	url := fmt.Sprintf("%sv%s/%s/insights?access_token=%s&%s", API_ENDPOINT, API_VERSION, id,
 		fb.AccessToken, strings.Join(urlParams, "&"))
 
 	log.Println(url)
