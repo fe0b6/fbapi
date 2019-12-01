@@ -113,6 +113,49 @@ func (fb *Api) Ads(id string, params map[string]string) (ans AdsAns, err error) 
 		urlParams = append(urlParams, fmt.Sprintf("%s=%s", k, v))
 	}
 
+	url := fmt.Sprintf("%sv%s/%s/ads?access_token=%s&%s", API_ENDPOINT, API_VERSION, id,
+		fb.AccessToken, strings.Join(urlParams, "&"))
+
+	client := &http.Client{Transport: httpTr}
+	resp, err := client.Get(url)
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	if err != nil {
+		log.Println("[error]", err)
+		return
+	}
+
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Println("[error]", err)
+		return
+	}
+
+	if resp.StatusCode != 200 {
+		err = errors.New(resp.Status)
+		log.Println("[error]", err, string(content))
+		return
+	}
+
+	err = json.Unmarshal(content, &ans)
+	if err != nil {
+		log.Println("[error]", err, string(content))
+		return
+	}
+
+	return
+
+}
+
+// Получаем инфу о рекламах
+func (fb *Api) Insights(id string, params map[string]string) (ans AdsAns, err error) {
+
+	urlParams := []string{}
+	for k, v := range params {
+		urlParams = append(urlParams, fmt.Sprintf("%s=%s", k, v))
+	}
+
 	url := fmt.Sprintf("%sv%s/%s/insights?access_token=%s&%s", API_ENDPOINT, API_VERSION, id,
 		fb.AccessToken, strings.Join(urlParams, "&"))
 
