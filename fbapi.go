@@ -12,8 +12,8 @@ import (
 )
 
 const (
-	API_VERSION   = "4.0"
-	API_TOKEN_URL = "https://graph.facebook.com/v4.0/oauth/access_token"
+	API_VERSION   = "5.0"
+	API_TOKEN_URL = "https://graph.facebook.com/v5.0/oauth/access_token"
 	API_ENDPOINT  = "https://graph.facebook.com/"
 )
 
