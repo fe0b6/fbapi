@@ -24,7 +24,19 @@ type GetAccountAns struct {
 }
 
 type AdsAns struct {
-	Data []AdsAnsData `json:"data"`
+	Data   []AdsAnsData `json:"data"`
+	Paging Paging       `json:"paging"`
+}
+
+type Paging struct {
+	Cursors  Cursors `json:"cursors"`
+	Previous string  `json:"previous"`
+	Next     string  `json:"next"`
+}
+
+type Cursors struct {
+	After  string `json:"after"`
+	Before string `json:"before"`
 }
 
 type AdsAnsData struct {
